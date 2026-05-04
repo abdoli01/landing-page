@@ -77,13 +77,12 @@ export function VideoFiltersModal({
                     <Filter size={16} />
                 </button>
             </DialogTrigger>
-
-            <DialogContent className="max-w-md">
+            <DialogContent className="w-[90vw] max-w-sm sm:max-w-md">
                 <DialogHeader>
                     <DialogTitle>{t("filters")}</DialogTitle>
                 </DialogHeader>
 
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3 w-full">
                     {Array.from({
                         length: selectedItemsPath.length + 1,
                     }).map((_, level) => {
@@ -94,22 +93,17 @@ export function VideoFiltersModal({
                             <Select
                                 key={level}
                                 value={selectedItemsPath[level] ?? ""}
-                                onValueChange={(v) =>
-                                    handleSelect(level, v)
-                                }
+                                onValueChange={(v) => handleSelect(level, v)}
                             >
                                 <SelectTrigger
-                                    className={isRtl ? "flex-row-reverse" : ""}
+                                    className={`w-full ${isRtl ? "flex-row-reverse" : ""}`}
                                 >
                                     <SelectValue placeholder={t("select")} />
                                 </SelectTrigger>
 
                                 <SelectContent>
                                     {options.map((item) => (
-                                        <SelectItem
-                                            key={item.key}
-                                            value={item.key}
-                                        >
+                                        <SelectItem key={item.key} value={item.key}>
                                             {item.title}
                                         </SelectItem>
                                     ))}
@@ -118,11 +112,12 @@ export function VideoFiltersModal({
                         );
                     })}
 
-                    <Button onClick={onSubmit}>
+                    <Button className="w-full" onClick={onSubmit}>
                         {t("getVideos")}
                     </Button>
                 </div>
             </DialogContent>
+
         </Dialog>
     );
 }
