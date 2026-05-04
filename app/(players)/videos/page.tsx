@@ -119,17 +119,16 @@ const Page = () => {
         <div className="py-4 space-y-4">
 
             {/* ================== KEYWORDS ================== */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex gap-2 overflow-x-auto whitespace-nowrap pb-2 pr-6">
                 {isLoadingKeywords ? (
                     <div className="text-sm">{t("loading")}</div>
                 ) : (
                     videoKeywords.map((item) => (
                         <Button
                             key={item.key}
+                            className="shrink-0"
                             variant={
-                                activeKey === item.key
-                                    ? "default"
-                                    : "outline"
+                                activeKey === item.key ? "default" : "outline"
                             }
                             onClick={() => {
                                 setSelectedKey(item.key);
