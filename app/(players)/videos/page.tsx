@@ -187,7 +187,7 @@ const Page = () => {
                             />
                         </>
                     ) : (
-                        <div className="text-center text-sm mt-10">
+                        <div className="hidden lg:block text-center text-sm mt-10">
                             {t("noVideoSelected")}
                         </div>
                     )}
