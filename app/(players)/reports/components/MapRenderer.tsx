@@ -21,33 +21,30 @@ interface Props {
 const FootballPitch: React.FC<Props> = ({ map }) => {
     if (!map?.value?.length) return null;
 
-    const maxValue = Math.max(...map.value.map((r) => r.value));
-
-    // استاندارد FIFA (متر)
+    // استاندارد زمین
     const pitchLength = 105;
     const pitchWidth = 68;
+
     const penaltyDepth = 16.5;
-    // const penaltyDepth = 17.5;
     const penaltyWidth = 40.3;
     const goalDepth = 5.5;
     const goalWidth = 18.3;
     const centerCircleRadius = 9.15;
 
-    const cols = 6; // تعداد ستون‌ها در طول زمین
-    const rows = 5; // تعداد ردیف‌ها (عرض متفاوت)
+    const cols = 6;
+    const rows = 5;
 
-    // طول هر ستون ثابت و مساوی
     const xStep = pitchLength / cols;
 
-    // عرض هر ردیف متناسب با مناطق واقعی زمین
     const yBorders = [
-        0,                                     // خط بالایی زمین
-        (pitchWidth - penaltyWidth) / 2,       // شروع محوطه جریمه
-        (pitchWidth - goalWidth) / 2,          // شروع محوطه کوچک
-        (pitchWidth + goalWidth) / 2,          // انتهای محوطه کوچک
-        (pitchWidth + penaltyWidth) / 2,       // انتهای محوطه جریمه
-        pitchWidth                              // خط پایینی زمین
+        0,
+        (pitchWidth - penaltyWidth) / 2,
+        (pitchWidth - goalWidth) / 2,
+        (pitchWidth + goalWidth) / 2,
+        (pitchWidth + penaltyWidth) / 2,
+        pitchWidth,
     ];
+
     const getGradeClass = (grade: string) => {
         switch (grade) {
             case "A":
@@ -63,19 +60,22 @@ const FootballPitch: React.FC<Props> = ({ map }) => {
         }
     };
 
+    const totalCells = map.value.length;
+    const compactMode = totalCells <= 15;
+
     return (
         <div className="w-full space-y-3">
             <h3 className="text-lg font-semibold">{map.title}</h3>
 
-            <div className="w-full" style={{ position: "relative", paddingTop: "61.9%" }}>
+            <div className="w-full relative" style={{ paddingTop: "61.9%" }}>
                 <svg
                     viewBox={`0 0 ${pitchLength} ${pitchWidth}`}
-                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                    className="absolute top-0 left-0 w-full h-full"
                 >
                     {/* Grass */}
                     <rect width={pitchLength} height={pitchWidth} fill="#2E7D32" />
 
-                    {/* Outer boundary */}
+                    {/* Border */}
                     <rect
                         x={0}
                         y={0}
@@ -86,7 +86,7 @@ const FootballPitch: React.FC<Props> = ({ map }) => {
                         strokeWidth={0.5}
                     />
 
-                    {/* Halfway line */}
+                    {/* Mid line */}
                     <line
                         x1={pitchLength / 2}
                         y1={0}
@@ -105,7 +105,12 @@ const FootballPitch: React.FC<Props> = ({ map }) => {
                         stroke="#fff"
                         strokeWidth={0.5}
                     />
-                    <circle cx={pitchLength / 2} cy={pitchWidth / 2} r={0.3} fill="#fff" />
+                    <circle
+                        cx={pitchLength / 2}
+                        cy={pitchWidth / 2}
+                        r={0.3}
+                        fill="#fff"
+                    />
 
                     {/* Penalty areas */}
                     <rect
@@ -151,17 +156,22 @@ const FootballPitch: React.FC<Props> = ({ map }) => {
                     <circle cx={11} cy={pitchWidth / 2} r={0.3} fill="#fff" />
                     <circle cx={pitchLength - 11} cy={pitchWidth / 2} r={0.3} fill="#fff" />
 
-                    {/* Heatmap grid */}
+                    {/* Heatmap */}
                     {map.value.map((cell, idx) => {
-                        const col = Math.floor(idx / rows);
+                        const baseCol = Math.floor(idx / rows);
+                        const col = compactMode
+                            ? cols - 1 - baseCol
+                            : baseCol;
+
                         const row = idx % rows;
 
-                        const x = col * xStep;           // طول ثابت
-                        const y = yBorders[row];         // عرض متناسب با منطقه
-                        const cellWidth = xStep;         // طول ثابت
-                        const cellHeight = yBorders[row + 1] - y; // عرض متناسب
-                        const gap = 0.7;
+                        const x = col * xStep;
+                        const y = yBorders[row];
 
+                        const cellWidth = xStep;
+                        const cellHeight = yBorders[row + 1] - y;
+
+                        const gap = 0.7;
 
                         return (
                             <g key={idx}>
