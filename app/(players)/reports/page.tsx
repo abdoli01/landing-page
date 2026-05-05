@@ -68,8 +68,12 @@ const Page = () => {
 
             {/* ---------- GRID ---------- */}
             <div className="grid grid-cols-12 gap-4">
+
                 {/* ---------- LEFT CARDS ---------- */}
-                <div style={{marginTop:40}} className="col-span-12 lg:col-span-3 space-y-1">
+                <div
+                    style={{ marginTop: 40 }}
+                    className="col-span-12 lg:col-span-3 space-y-1 order-2 lg:order-1"
+                >
                     {stats &&
                         Object.values(stats).map((item) => (
                             <Card className="py-4" key={item.key}>
@@ -78,21 +82,21 @@ const Page = () => {
                                         {item.title ?? "-"}
                                     </CardTitle>
                                     <span className="text-sm font-semibold text-foreground">
-                                      {Array.isArray(item.value)
-                                          ? item.value.map(v => v.title).join(", ")
-                                          : item.value ?? "-"}
-                                    </span>
+                            {Array.isArray(item.value)
+                                ? item.value.map(v => v.title).join(", ")
+                                : item.value ?? "-"}
+                        </span>
                                 </CardHeader>
                             </Card>
                         ))}
                 </div>
 
                 {/* ---------- RIGHT MAPS ---------- */}
-                <div className="col-span-12 lg:col-span-6 space-y-4">
+                <div className="col-span-12 lg:col-span-6 space-y-4 order-1 lg:order-2">
                     <MapRenderer map={data?.map} />
                 </div>
-            </div>
 
+            </div>
             {isFetching && (
                 // <div className="mt-4 text-sm text-muted-foreground">
                 //     Loading profile data...
