@@ -14,7 +14,8 @@ import {
     UpdateVisibleLanguagesDto,
     WordToLanguagesVersion,
     WordToLanguagesListResponse,
-    VisibleAccountTypesManagementResponse
+    VisibleAccountTypesManagementResponse,
+    VisibleLanguagesResponse
 } from "@/types/settings";
 
 export const settingsApi = baseApi.injectEndpoints({
@@ -102,7 +103,7 @@ export const settingsApi = baseApi.injectEndpoints({
         // ==================================================
         // VISIBLE LANGUAGES
         // ==================================================
-        getSettingsVisibleLanguages: builder.query<VisibleLanguage[], void>({
+        getSettingsVisibleLanguages: builder.query<VisibleLanguagesResponse, void>({
             query: () => "/settings/visible-languages",
             providesTags: ["SETTINGS"],
         }),

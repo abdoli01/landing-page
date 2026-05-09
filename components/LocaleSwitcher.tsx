@@ -1,7 +1,16 @@
 "use client";
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import React from "react";
+
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+
+import { useGetSettingsVisibleLanguagesQuery } from "@/services/api/settingsApi";
 
 function getInitialLocale() {
     if (typeof document === "undefined") return "fa";
@@ -17,22 +26,40 @@ function getInitialLocale() {
 export default function LocaleSwitcher() {
     const [currentLocale, setCurrentLocale] = React.useState<string>(getInitialLocale);
 
+    const {
+        data,
+        isLoading,
+    } = useGetSettingsVisibleLanguagesQuery();
+
+    const languages = data?.items || [];
+
     const changeLanguage = (locale: string) => {
+        setCurrentLocale(locale);
+
         document.cookie = `locale=${locale}; path=/; max-age=31536000`;
+
         window.location.reload();
     };
 
     return (
         <Select
             value={currentLocale}
-            onValueChange={(value) => changeLanguage(value)}
+            onValueChange={changeLanguage}
+            disabled={isLoading}
         >
             <SelectTrigger className="w-40">
                 <SelectValue placeholder="Select language" />
             </SelectTrigger>
+
             <SelectContent>
-                <SelectItem value="en">🇺🇸 English</SelectItem>
-                <SelectItem value="fa">🇮🇷 فارسی</SelectItem>
+                {languages.map((language) => (
+                    <SelectItem
+                        key={language.id}
+                        value={language.code}
+                    >
+                        {language.code.toUpperCase()} - {language.fullName}
+                    </SelectItem>
+                ))}
             </SelectContent>
         </Select>
     );

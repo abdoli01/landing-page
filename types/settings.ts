@@ -59,6 +59,9 @@ export interface VisibleLanguage {
     fullName: string;
     code: string;
 }
+export interface VisibleLanguagesResponse {
+    items: VisibleLanguage[];
+}
 
 export interface VisibleLanguageManagement extends VisibleLanguage {
     visible: boolean;
