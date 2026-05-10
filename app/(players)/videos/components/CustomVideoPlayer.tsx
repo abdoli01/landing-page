@@ -1,6 +1,8 @@
 'use client';
 import React, { useRef, useEffect, useState } from 'react';
 import { RotateCcw, Play, SkipForward, SkipBack } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile"
+
 
 interface VideoPlayerProps {
     url: string;
@@ -17,6 +19,9 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
     const [showControls, setShowControls] = useState(false);
     const [segmentFinished, setSegmentFinished] = useState(false);
     const [forcePaused, setForcePaused] = useState(false); // ← کلید اصلی حل مشکل
+
+    const isMobile = useIsMobile()
+
 
     useEffect(() => {
         if (!playerRef.current) return;
@@ -106,28 +111,28 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
                         onClick={handlePrev}
                         className="p-4 border-2 border-acn1 rounded-xl hover:bg-acn1 transition cursor-pointer"
                     >
-                        <SkipBack size={40} color="white" />
+                        <SkipBack size={isMobile ? 16 : 40} color="white" />
                     </button>
 
                     <button
                         onClick={handleRepeat}
                         className="p-4 border-2 border-acn1 rounded-xl hover:bg-acn1 transition cursor-pointer"
                     >
-                        <RotateCcw size={40} color="white" />
+                        <RotateCcw size={isMobile ? 16 : 40} color="white" />
                     </button>
 
                     <button
                         onClick={handlePlayContinue}
                         className="p-4 border-2 border-acn1 rounded-xl hover:bg-acn1 transition cursor-pointer"
                     >
-                        <Play size={40} color="white" />
+                        <Play size={isMobile ? 16 : 40} color="white" />
                     </button>
 
                     <button
                         onClick={handleNext}
                         className="p-4 border-2 border-acn1 rounded-xl hover:bg-acn1 transition cursor-pointer"
                     >
-                        <SkipForward size={40} color="white" />
+                        <SkipForward size={isMobile ? 16 : 40} color="white" />
                     </button>
 
                 </div>
