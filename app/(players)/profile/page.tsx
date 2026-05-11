@@ -109,7 +109,7 @@ const Page = () => {
             {/* ---------- GRID ---------- */}
             <div className="grid grid-cols-12 gap-4">
                 {/* ---------- LEFT CARDS ---------- */}
-                <div style={{marginTop:40}} className="col-span-12 lg:col-span-3 space-y-1">
+                <div style={{marginTop:40}} className="col-span-12 lg:col-span-3 space-y-1 order-2 lg:order-1">
                     {/* Positions */}
                     <Card className='py-4'>
                         <CardHeader className="flex flex-row items-center justify-between">
@@ -172,7 +172,7 @@ const Page = () => {
                 </div>
 
                 {/* ---------- RIGHT CHARTS ---------- */}
-                <div className="col-span-12 lg:col-span-6 space-y-4">
+                <div className="col-span-12 lg:col-span-6 space-y-4 order-1 lg:order-2">
                     <div className="flex items-center justify-between mb-1">
                         <h2 className="text-lg font-semibold">
                             {chartType === "polar" ? "Polar Chart" : barData.title}
