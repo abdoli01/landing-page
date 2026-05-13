@@ -190,7 +190,7 @@ const FootballPitch: React.FC<Props> = ({ map }) => {
                                     width={cellWidth - gap}
                                     height={cellHeight - gap}
                                     className={getGradeClass(cell.grade)}
-                                    opacity={0.5}
+                                    opacity={0.9}
                                 />
                                 <text
                                     x={x + cellWidth / 2}
