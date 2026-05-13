@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from "react";
+import React, {useMemo, useState} from "react";
 import {
     useGetProfileKeywordsQuery,
     useGetProfileQuery,
@@ -22,6 +22,8 @@ import {
     ResponsiveContainer,
 } from "recharts";
 import CustomTooltip from "./components/CustomTooltip"
+import { useGetMyColorPaletteQuery } from "@/services/api/usersApi";
+
 
 // Chart.js
 import {
@@ -60,35 +62,40 @@ const Page = () => {
 
     const data = profileData?.data;
 
+    const { data:colors } = useGetMyColorPaletteQuery();
+
+
+    const gradeColors = useMemo(() => ({
+        A: colors?.H1,
+        B: colors?.H2,
+        C: colors?.HG3,
+        D: colors?.HG4
+    }), [colors]);
+
     /* ---------- NORMALIZED DATA ---------- */
     const pieData =
         data?.pie
             ? Object.values(data.pie).map((item: any) => ({
                 name: item.title,
                 value: item.value,
+                grade: item.grade,
             }))
             : [];
-
     const barData: any = Array.isArray(data?.bar?.value) ? data!.bar : [];
 
     /* ---------- Polar Area Chart DATA ---------- */
-    const polarData = {
+    const polarData = useMemo(() => ({
         labels: pieData.map(d => d.name),
         datasets: [
             {
                 label: "Value",
                 data: pieData.map(d => d.value),
-                backgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
-                    "#FFCE56",
-                    "#4BC0C0",
-                    "#9966FF",
-                    "#FF9F40",
-                ],
+                backgroundColor: pieData.map(
+                    d => gradeColors[d.grade as keyof typeof gradeColors]
+                ),
             },
         ],
-    };
+    }), [pieData, gradeColors]);
 
     return (
         <div className="py-4">
