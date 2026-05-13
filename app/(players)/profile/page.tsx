@@ -37,6 +37,7 @@ import {
 import { PolarArea } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { ChartBar, ChartPie } from "lucide-react";
+import {Spinner} from "@/components/Spinner";
 
 
 ChartJS.register(ArcElement, RadialLinearScale, ChartTooltip, Legend, ChartDataLabels);
@@ -56,7 +57,7 @@ const Page = () => {
     const activeKey = selectedKey ?? keywords[0]?.key;
 
     /* ---------- PROFILE DATA ---------- */
-    const { data: profileData, isFetching } = useGetProfileQuery(
+    const { data: profileData, isLoading } = useGetProfileQuery(
         { keyword: user?.accountType, key: activeKey, playerId, seasonId },
         { skip: !activeKey || !playerId || !seasonId }
     );
@@ -82,7 +83,7 @@ const Page = () => {
                 grade: item.grade,
             }))
             : [];
-    const barData: any = Array.isArray(data?.bar?.value) ? data!.bar : [];
+    const barData: any = Array.isArray(data?.bar?.value) ? data!.bar : { title: "", value: [] };
 
     /* ---------- Polar Area Chart DATA ---------- */
     const polarData = {
@@ -92,12 +93,21 @@ const Page = () => {
                 label: "Value",
                 data: pieData.map(d => d.value),
                 backgroundColor: pieData.map(
-                    d => gradeColors[d.grade as keyof typeof gradeColors]
+                    d => gradeColors[d.grade as keyof typeof gradeColors] || "#9ca3af"
                 ),
             },
         ],
     };
+    const isLoadingState =
+        isLoading || !colors || !activeKey;
 
+    if (isLoadingState) {
+        return (
+            <div className="mt-4 text-sm text-muted-foreground">
+                <Spinner />
+            </div>
+        )
+    }
     return (
         <div className="py-4">
             {/* ---------- KEYWORDS ---------- */}
@@ -248,12 +258,6 @@ const Page = () => {
 
                 </div>
             </div>
-
-            {isFetching && (
-                <div className="mt-4 text-sm text-muted-foreground">
-                    Loading profile data...
-                </div>
-            )}
         </div>
     );
 };
