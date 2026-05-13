@@ -23,6 +23,7 @@ import {
 import { useAppSelector } from "@/store/hooks";
 
 import { VideoFiltersModal } from "./components/VideoFiltersModal";
+import {Spinner} from "@/components/Spinner";
 
 const Page = () => {
     const t = useTranslations("Videos");
@@ -112,6 +113,14 @@ const Page = () => {
         setForcePlay((prev) => prev + 1);
     };
 
+    if (isLoadingKeywords) {
+        return (
+            <div className="flex items-center justify-center h-[300px]">
+                <Spinner />
+            </div>
+        );
+    }
+
     // ========================
     // RENDER
     // ========================
@@ -120,9 +129,7 @@ const Page = () => {
 
             {/* ================== KEYWORDS ================== */}
             <div className="flex gap-2 overflow-x-auto whitespace-nowrap pb-2 pr-6">
-                {isLoadingKeywords ? (
-                    <div className="text-sm">{t("loading")}</div>
-                ) : (
+                {(
                     videoKeywords.map((item) => (
                         <Button
                             key={item.key}
@@ -137,8 +144,8 @@ const Page = () => {
                         >
                             {item.title}
                         </Button>
-                    ))
-                )}
+                    )
+                ))}
             </div>
 
             {/* ================== MAIN GRID ================== */}
