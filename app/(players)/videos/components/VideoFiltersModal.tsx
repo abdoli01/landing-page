@@ -90,7 +90,7 @@ export function VideoFiltersModal({
                 </button>
             </DialogTrigger>
             <DialogContent className="w-[90vw] max-w-sm sm:max-w-md">
-                <DialogHeader>
+                <DialogHeader className={isRtl ? "!text-right" : ""}>
                     <DialogTitle>{t("filters")}</DialogTitle>
                 </DialogHeader>
 
