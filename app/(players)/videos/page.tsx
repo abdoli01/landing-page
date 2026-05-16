@@ -137,7 +137,7 @@ const Page = () => {
         <div className="py-4 space-y-4">
 
             {/* ================== KEYWORDS ================== */}
-            <div className="flex gap-2 overflow-x-auto whitespace-nowrap pb-2 pr-6">
+                <div className={`flex gap-2 overflow-x-auto whitespace-nowrap pb-2 scrollbar-hide ${isRtl ? 'pl-6' : 'pr-6'}`}>
                 {(
                     videoKeywords.map((item) => (
                         <Button

@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/card";
 import {Spinner} from "@/components/Spinner";
 import MapRenderer from "./components/MapRenderer";
+import {useLocale} from "next-intl";
 
 interface StatItem {
     title: string;
@@ -28,6 +29,8 @@ interface Stats {
 
 
 const Page = () => {
+    const locale = useLocale();
+    const isRtl = locale === "fa";
     /* ---------- REDUX ---------- */
     const seasonId = useAppSelector((s) => s.season.currentSeasonId) ?? undefined;
     const user = useAppSelector((s) => s.user.user);
@@ -62,7 +65,7 @@ const Page = () => {
     return (
         <div className="py-4">
             {/* ---------- KEYWORDS ---------- */}
-            <div className="flex gap-2 overflow-x-auto whitespace-nowrap pb-2 pr-6">
+            <div className={`flex gap-2 overflow-x-auto whitespace-nowrap pb-2 scrollbar-hide ${isRtl ? 'pl-6' : 'pr-6'}`}>
                 {keywords.map((item) => (
                     <Button
                         className="shrink-0"

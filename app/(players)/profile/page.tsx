@@ -38,11 +38,14 @@ import { PolarArea } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { ChartBar, ChartPie } from "lucide-react";
 import {Spinner} from "@/components/Spinner";
+import {useLocale} from "next-intl";
 
 
 ChartJS.register(ArcElement, RadialLinearScale, ChartTooltip, Legend, ChartDataLabels);
 
 const Page = () => {
+    const locale = useLocale();
+    const isRtl = locale === "fa";
     /* ---------- REDUX ---------- */
     const seasonId = useAppSelector((s) => s.season.currentSeasonId) ?? undefined;
     const user = useAppSelector((s) => s.user.user);
@@ -111,7 +114,7 @@ const Page = () => {
     return (
         <div className="py-4">
             {/* ---------- KEYWORDS ---------- */}
-            <div className="flex gap-2 overflow-x-auto whitespace-nowrap pb-2 pr-6">
+            <div className={`flex gap-2 overflow-x-auto whitespace-nowrap pb-2 scrollbar-hide ${isRtl ? 'pl-6' : 'pr-6'}`}>
                 {keywords.map((item) => (
                     <Button
                         className="shrink-0"
