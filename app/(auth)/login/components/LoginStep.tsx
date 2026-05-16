@@ -74,7 +74,7 @@ export default function LoginStep({
             dispatch(setUser(response.user));
 
             toast.success(t('loginSuccess'));
-            if(response.user && response.user.playerId){
+            if(response.user && (response.user.playerId || response.user.accountType === "ADMIN")){
                 sessionStorage.removeItem("auth_wizard_state");
                 router.push("/"); // بعد از موفقیت
             }else{

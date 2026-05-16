@@ -230,7 +230,9 @@
     "selectColorPalette": "انتخاب پالت رنگی",
     "visibleLanguages": "زبان‌های قابل مشاهده",
     "language": "زبان",
-    "code": "کد"
+    "code": "کد",
+    "FOOTBALL_PLAYER_GOALKEEPER": "دروازه بان"
+
 
   }
 }

@@ -226,6 +226,7 @@
     "selectColorPalette": "Select color palette",
     "visibleLanguages": "Visible Languages",
     "language": "Language",
-    "code": "Code"
+    "code": "Code",
+    "FOOTBALL_PLAYER_GOALKEEPER": "Goal Keeper"
   }
 }
