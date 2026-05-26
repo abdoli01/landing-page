@@ -88,6 +88,34 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
         if (onPrev) onPrev(); // ← استفاده از prop جدید onPrev
     };
 
+    const SKIP_SECONDS = 4; // ← اینو هرچی بخوای کن (مثلاً 10 یا 30)
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            const video = playerRef.current;
+            if (!video) return;
+
+            if (e.key === 'ArrowRight') {
+                video.currentTime = Math.min(
+                    video.currentTime + SKIP_SECONDS,
+                    video.duration
+                );
+            }
+
+            if (e.key === 'ArrowLeft') {
+                video.currentTime = Math.max(
+                    video.currentTime - SKIP_SECONDS,
+                    0
+                );
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
 
     return (
         <div className="relative w-full">
