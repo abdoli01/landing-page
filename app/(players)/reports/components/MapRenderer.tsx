@@ -205,6 +205,129 @@ const FootballPitch: React.FC<Props> = ({ map }) => {
                             </g>
                         );
                     })}
+                    {compactMode && (
+                        <>
+
+                            {/* 1 */}
+                            <text
+                                x={xOffset + cellWidth * 2}
+                                y={yBorders[1]}
+                                className='fill-acn1 font-bold'
+                                fontSize={6}
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                            >
+                                ×
+                            </text>
+
+                            {/* 2 */}
+                            <text
+                                x={xOffset + cellWidth * 2}
+                                y={yBorders[2]}
+                                className='fill-acn1 font-bold'
+                                fontSize={6}
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                            >
+                                ×
+                            </text>
+
+                            {/* 3 */}
+                            <text
+                                x={xOffset + cellWidth * 2}
+                                y={yBorders[3]}
+                                className='fill-acn1 font-bold'
+                                fontSize={6}
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                            >
+                                ×
+                            </text>
+
+                            {/* 4 */}
+                            <text
+                                x={xOffset + cellWidth * 2}
+                                y={yBorders[4]}
+                                className='fill-acn1 font-bold'
+                                fontSize={6}
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                            >
+                                ×
+                            </text>
+
+                            {/* 11 - پایین وسط */}
+                            <text
+                                x={xOffset + cellWidth / 2}
+                                y={yBorders[1]}
+                                className='fill-acn1 font-bold'
+                                fontSize={6}
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                            >
+                                ×
+                            </text>
+
+                            {/* 14 - پایین وسط */}
+                            <text
+                                x={xOffset + cellWidth / 2}
+                                y={yBorders[4]}
+                                className='fill-acn1 font-bold'
+                                fontSize={6}
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                            >
+                                ×
+                            </text>
+
+                            {/*  13 - چپ بالا */}
+                            <text
+                                x={xOffset}
+                                y={yBorders[2]}
+                                className='fill-acn1 font-bold'
+                                fontSize={6}
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                            >
+                                ×
+                            </text>
+
+                            {/* 13 - راست بالا */}
+                            <text
+                                x={xOffset + cellWidth}
+                                y={yBorders[2]}
+                                className='fill-acn1 font-bold'
+                                fontSize={6}
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                            >
+                                ×
+                            </text>
+                            {/* 13 پایین راست */}
+                            <text
+                                x={xOffset + cellWidth}
+                                y={yBorders[3]}
+                                className='fill-acn1 font-bold'
+                                fontSize={6}
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                            >
+                                ×
+                            </text>
+
+                            {/* 13 - پایین چپ */}
+                            <text
+                                x={xOffset}
+                                y={yBorders[3]}
+                                className='fill-acn1 font-bold'
+                                fontSize={6}
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                            >
+                                ×
+                            </text>
+                        </>
+                    )}
                 </svg>
             </div>
             <div className="w-full flex justify-start mt-2">
