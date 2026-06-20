@@ -22,7 +22,29 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
 
     const isMobile = useIsMobile()
 
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [speed, setSpeed] = useState(1);
+    const [volume, setVolume] = useState(1);
+    const [showSpeedMenu, setShowSpeedMenu] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
 
+    useEffect(() => {
+        const video = playerRef.current;
+        if (!video) return;
+
+        const onPlay = () => setIsPlaying(true);
+        const onPause = () => setIsPlaying(false);
+
+        video.addEventListener("play", onPlay);
+        video.addEventListener("pause", onPause);
+
+        return () => {
+            video.removeEventListener("play", onPlay);
+            video.removeEventListener("pause", onPause);
+        };
+    }, []);
     useEffect(() => {
         if (!playerRef.current) return;
 
@@ -41,27 +63,101 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
         };
     }, []);
 
+    useEffect(() => {
+        const video = playerRef.current;
+        if (!video) return;
+
+        const onPlay = () => setIsPlaying(true);
+        const onPause = () => setIsPlaying(false);
+
+        video.addEventListener("play", onPlay);
+        video.addEventListener("pause", onPause);
+
+        return () => {
+            video.removeEventListener("play", onPlay);
+            video.removeEventListener("pause", onPause);
+        };
+    }, []);
+    useEffect(() => {
+        const video = playerRef.current;
+        if (!video) return;
+
+        const onLoaded = () => {
+            setDuration(video.duration);
+        };
+
+        video.addEventListener("loadedmetadata", onLoaded);
+
+        return () => {
+            video.removeEventListener("loadedmetadata", onLoaded);
+        };
+    }, []);    const containerRef = useRef<HTMLDivElement>(null);
+
+    const togglePlay = () => {
+        const video = playerRef.current;
+        if (!video) return;
+
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
+    };
+
+    const changeVolume = (val: number) => {
+        const video = playerRef.current;
+        if (!video) return;
+
+        video.volume = val;
+        setVolume(val);
+    };
+
+    const changeSpeed = (rate: number) => {
+        const video = playerRef.current;
+        if (!video) return;
+
+        video.playbackRate = rate;
+        setSpeed(rate);
+        setShowSpeedMenu(false);
+    };
+
 
     const handleTimeUpdate = () => {
         if (!playerRef.current) return;
 
-        const current = playerRef.current.currentTime;
+        const video = playerRef.current;
+        setCurrentTime(video.currentTime);
 
-        // اگر segment تمام شد (طبیعی یا با seek)
+        const current = video.currentTime;
+
+        // 🔥 PROGRESS UPDATE (اینجا باید باشه)
+        const percent =
+            video.duration && !isNaN(video.duration)
+                ? (video.currentTime / video.duration) * 100
+                : 0;
+
+        setProgress(isNaN(percent) ? 0 : percent);
+        // اگر segment تمام شد
         if (current >= end && !segmentFinished) {
-            playerRef.current.pause();
+            video.pause();
             setShowControls(true);
             setSegmentFinished(true);
-            setForcePaused(true);   // ← از ادامه پخش جلوگیری کن
+            setForcePaused(true);
             return;
         }
 
-        // اگر باید پاز بماند (تا زمان کلیک کاربر)
+        // اگر باید پاز بماند
         if (forcePaused) {
-            playerRef.current.pause();
+            video.pause();
         }
     };
 
+    const formatTime = (time: number) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+
+        return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    };
     const handleRepeat = () => {
         if (!playerRef.current) return;
 
@@ -118,7 +214,7 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
 
 
     return (
-        <div className="relative w-full">
+        <div ref={containerRef} className="relative w-full">
             <video
                 ref={playerRef}
                 src={url}
@@ -129,8 +225,138 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
                     setForcePaused(true);
                 }}
                 className="w-full"
-                controls
+                controls={false}
+                onClick={() => {
+                    const video = playerRef.current;
+                    if (!video) return;
+
+                    if (video.paused) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                }}
             />
+            {/* CONTROLS */}
+            <div className="absolute bottom-0 left-0 right-0 z-50 bg-black/60 text-white flex items-center justify-between px-3 py-1">
+                <div className="text-white text-sm">
+                    {formatTime(currentTime)} / {formatTime(duration)}
+                </div>
+                <div className="w-full absolute bottom-8 left-0 px-3">
+                    <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={isNaN(progress) ? 0 : progress}
+                        onChange={(e) => {
+                            const video = playerRef.current;
+                            if (!video || !video.duration) return;
+
+                            const newTime =
+                                (Number(e.target.value) / 100) * video.duration;
+
+                            video.currentTime = newTime;
+                        }}
+                        className="w-full"
+                    />
+                </div>
+
+                {/* BACK 10s */}
+                <button onClick={() => {
+                    if (!playerRef.current) return;
+                    playerRef.current.currentTime -= 4;
+                }}>
+                    -4
+                </button>
+
+                {/* PLAY / PAUSE */}
+                <button onClick={() => {
+                    if (!playerRef.current) return;
+
+                    if (playerRef.current.paused) {
+                        playerRef.current.play();
+                    } else {
+                        playerRef.current.pause();
+                    }
+                }}>
+                    {isPlaying ? "Pause" : "Play"}
+                </button>
+
+                {/* FORWARD 10s */}
+                <button onClick={() => {
+                    if (!playerRef.current) return;
+                    playerRef.current.currentTime += 4;
+                }}>
+                    +4
+                </button>
+
+                {/* SPEED */}
+                <select
+                    className="text-foreground bg-muted px-2 py-1 rounded"
+                    value={speed}
+                    onChange={(e) => {
+                        const value = Number(e.target.value);
+
+                        if (!playerRef.current) return;
+
+                        playerRef.current.playbackRate = value;
+                        setSpeed(value);
+                    }}
+                >
+                    <option value="0.5">0.5x</option>
+                    <option value="1">1x</option>
+                    <option value="1.5">1.5x</option>
+                    <option value="2">2x</option>
+                </select>
+
+                {/* VOLUME */}
+                <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.1"
+                    onChange={(e) => {
+                        if (!playerRef.current) return;
+                        playerRef.current.volume = Number(e.target.value);
+                    }}
+                />
+
+                {/*pip*/}
+                <button
+                    onClick={async () => {
+                        const video = playerRef.current;
+                        if (!video) return;
+
+                        try {
+                            // اگر already PiP هست → خارج شو
+                            if (document.pictureInPictureElement) {
+                                await document.exitPictureInPicture();
+                            } else {
+                                await video.requestPictureInPicture();
+                            }
+                        } catch (err) {
+                            console.log("PiP not supported", err);
+                        }
+                    }}
+                >
+                    PiP
+                </button>
+
+                {/* FULLSCREEN */}
+                <button onClick={() => {
+                    const el = containerRef.current;
+                    if (!el) return;
+
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    } else {
+                        el.requestFullscreen();
+                    }
+                }}>
+                    FS
+                </button>
+
+            </div>
 
             {showControls && (
                 <div dir='ltr' className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm space-x-6">
