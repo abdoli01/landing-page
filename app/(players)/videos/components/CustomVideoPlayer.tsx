@@ -1,6 +1,6 @@
 'use client';
 import React, { useRef, useEffect, useState } from 'react';
-import { RotateCcw, Play, SkipForward, SkipBack } from "lucide-react";
+import { RotateCcw, Play, SkipForward, SkipBack, Fullscreen, PictureInPicture2 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile"
 
 
@@ -214,7 +214,7 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
 
 
     return (
-        <div ref={containerRef} className="relative w-full">
+        <div ref={containerRef} className="relative w-full h-full bg-black flex items-center justify-center">
             <video
                 ref={playerRef}
                 src={url}
@@ -224,7 +224,7 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
                     setSegmentFinished(true);
                     setForcePaused(true);
                 }}
-                className="w-full"
+                className="w-full h-full object-contain"
                 controls={false}
                 onClick={() => {
                     const video = playerRef.current;
@@ -261,14 +261,6 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
                     />
                 </div>
 
-                {/* BACK 10s */}
-                <button onClick={() => {
-                    if (!playerRef.current) return;
-                    playerRef.current.currentTime -= 4;
-                }}>
-                    -4
-                </button>
-
                 {/* PLAY / PAUSE */}
                 <button onClick={() => {
                     if (!playerRef.current) return;
@@ -281,15 +273,7 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
                 }}>
                     {isPlaying ? "Pause" : "Play"}
                 </button>
-
-                {/* FORWARD 10s */}
-                <button onClick={() => {
-                    if (!playerRef.current) return;
-                    playerRef.current.currentTime += 4;
-                }}>
-                    +4
-                </button>
-
+                
                 {/* SPEED */}
                 <select
                     className="text-foreground bg-muted px-2 py-1 rounded"
@@ -339,7 +323,7 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
                         }
                     }}
                 >
-                    PiP
+                    <PictureInPicture2 size={20} color="white"/>
                 </button>
 
                 {/* FULLSCREEN */}
@@ -353,7 +337,7 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
                         el.requestFullscreen();
                     }
                 }}>
-                    FS
+                    <Fullscreen size={20} color="white"/>
                 </button>
 
             </div>
