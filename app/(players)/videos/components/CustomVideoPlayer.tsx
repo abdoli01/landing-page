@@ -1,6 +1,6 @@
 'use client';
 import React, { useRef, useEffect, useState } from 'react';
-import { RotateCcw, Play, SkipForward, SkipBack, Fullscreen, PictureInPicture2, Pause } from "lucide-react";
+import { RotateCcw, Play, SkipForward, SkipBack, Fullscreen, PictureInPicture2, Pause,} from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile"
 
 
@@ -290,17 +290,26 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
 
                     <div className='flex items-center gap-4'>
                     {/* PLAY / PAUSE */}
-                    <button onClick={() => {
-                        if (!playerRef.current) return;
+                    <div className='flex items-center gap-2'>
+                        <button>
+                            <SkipBack size={16} color='white'/>
+                        </button>
 
-                        if (playerRef.current.paused) {
-                            playerRef.current.play();
-                        } else {
-                            playerRef.current.pause();
-                        }
-                    }}>
-                        {isPlaying ? <Pause size={20} color="white"/> : <Play size={20} color="white"/>}
-                    </button>
+                        <button onClick={() => {
+                            if (!playerRef.current) return;
+
+                            if (playerRef.current.paused) {
+                                playerRef.current.play();
+                            } else {
+                                playerRef.current.pause();
+                            }
+                        }}>
+                            {isPlaying ? <Pause size={16} color="white"/> : <Play size={16} color="white"/>}
+                        </button>
+                        <button>
+                            <SkipForward size={16} color='white'/>
+                        </button>
+                    </div>
 
                     {/* VOLUME */}
                         {!isMobile && (
@@ -359,7 +368,7 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
                                 }
                             }}
                         >
-                            <PictureInPicture2 size={20} color="white"/>
+                            <PictureInPicture2 size={16} color="white"/>
                         </button>
 
                         {/* FULLSCREEN */}
@@ -373,7 +382,7 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
                                 el.requestFullscreen();
                             }
                         }}>
-                            <Fullscreen size={20} color="white"/>
+                            <Fullscreen size={16} color="white"/>
                         </button>
                     </div>
 
