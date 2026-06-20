@@ -29,6 +29,7 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
     const [progress, setProgress] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
+    const [isActive, setIsActive] = useState(true);
 
     useEffect(() => {
         const video = playerRef.current;
@@ -92,6 +93,33 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
             video.removeEventListener("loadedmetadata", onLoaded);
         };
     }, []);    const containerRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+
+        const resetTimer = () => {
+            setIsActive(true);
+
+            clearTimeout(timer);
+
+            timer = setTimeout(() => {
+                setIsActive(false);
+            }, 2500); // بعد 2.5 ثانیه بدون حرکت مخفی میشه
+        };
+
+        const container = containerRef.current;
+        if (!container) return;
+
+        container.addEventListener("mousemove", resetTimer);
+        container.addEventListener("touchstart", resetTimer);
+
+        resetTimer();
+
+        return () => {
+            container.removeEventListener("mousemove", resetTimer);
+            container.removeEventListener("touchstart", resetTimer);
+            clearTimeout(timer);
+        };
+    }, []);
 
     const togglePlay = () => {
         const video = playerRef.current;
@@ -214,7 +242,7 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
 
 
     return (
-        <div ref={containerRef} className="relative w-full h-full bg-black flex items-center justify-center">
+        <div ref={containerRef} className="relative w-full bg-black flex items-center justify-center">
             <video
                 ref={playerRef}
                 src={url}
@@ -238,111 +266,120 @@ const CustomVideoPlayer: React.FC<VideoPlayerProps> = ({ url, start, end, onNext
                 }}
             />
             {/* CONTROLS */}
-            <div className="absolute bottom-0 left-0 right-0 z-50 bg-black/60 text-white flex items-center justify-between px-3 py-1">
-                <div className="text-white text-sm">
-                    {formatTime(currentTime)} / {formatTime(duration)}
-                </div>
-                <div className="w-full absolute bottom-8 left-0 px-3">
-                    <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        value={isNaN(progress) ? 0 : progress}
-                        onChange={(e) => {
-                            const video = playerRef.current;
-                            if (!video || !video.duration) return;
+            {isActive && (
+                <div className="absolute bottom-0 left-0 right-0 z-50 bg-black/60 text-white flex flex-wrap items-center justify-between px-3 py-1">
+                    <div className="w-full absolute bottom-8 left-0 px-3">
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value={isNaN(progress) ? 0 : progress}
+                            onChange={(e) => {
+                                const video = playerRef.current;
+                                if (!video || !video.duration) return;
 
-                            const newTime =
-                                (Number(e.target.value) / 100) * video.duration;
+                                const newTime =
+                                    (Number(e.target.value) / 100) * video.duration;
 
-                            video.currentTime = newTime;
-                        }}
-                        className="w-full"
-                    />
-                </div>
+                                video.currentTime = newTime;
+                            }}
+                            className="w-full"
+                        />
+                    </div>
 
-                {/* PLAY / PAUSE */}
-                <button onClick={() => {
-                    if (!playerRef.current) return;
 
-                    if (playerRef.current.paused) {
-                        playerRef.current.play();
-                    } else {
-                        playerRef.current.pause();
-                    }
-                }}>
-                    {isPlaying ? <Pause size={20} color="white"/> : <Play size={20} color="white"/>}
-                </button>
-
-                {/* VOLUME */}
-                <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.1"
-                    onChange={(e) => {
-                        if (!playerRef.current) return;
-                        playerRef.current.volume = Number(e.target.value);
-                    }}
-                />
-                <div className='flex items-center gap-4'>
-
-                {/* SPEED */}
-                <select
-                    className="text-foreground border-foreground bg-background px-2 py-1 rounded"
-                    value={speed}
-                    onChange={(e) => {
-                        const value = Number(e.target.value);
-
+                    <div className='flex items-center gap-4'>
+                    {/* PLAY / PAUSE */}
+                    <button onClick={() => {
                         if (!playerRef.current) return;
 
-                        playerRef.current.playbackRate = value;
-                        setSpeed(value);
-                    }}
-                >
-                    <option value="0.5">0.5x</option>
-                    <option value="1">1x</option>
-                    <option value="1.5">1.5x</option>
-                    <option value="2">2x</option>
-                </select>
-
-                {/*pip*/}
-                <button
-                    onClick={async () => {
-                        const video = playerRef.current;
-                        if (!video) return;
-
-                        try {
-                            // اگر already PiP هست → خارج شو
-                            if (document.pictureInPictureElement) {
-                                await document.exitPictureInPicture();
-                            } else {
-                                await video.requestPictureInPicture();
-                            }
-                        } catch (err) {
-                            console.log("PiP not supported", err);
+                        if (playerRef.current.paused) {
+                            playerRef.current.play();
+                        } else {
+                            playerRef.current.pause();
                         }
-                    }}
-                >
-                    <PictureInPicture2 size={20} color="white"/>
-                </button>
+                    }}>
+                        {isPlaying ? <Pause size={20} color="white"/> : <Play size={20} color="white"/>}
+                    </button>
 
-                {/* FULLSCREEN */}
-                <button onClick={() => {
-                    const el = containerRef.current;
-                    if (!el) return;
+                    {/* VOLUME */}
+                        {!isMobile && (
+                            <input
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.1"
+                                onChange={(e) => {
+                                    if (!playerRef.current) return;
+                                    playerRef.current.volume = Number(e.target.value);
+                                }}
+                            />
+                        )}
+                    {/*Time*/}
+                    <div className="text-white text-sm">
+                        {formatTime(currentTime)} / {formatTime(duration)}
+                    </div>
+                  </div>
+                    <div className='flex items-center gap-4'>
 
-                    if (document.fullscreenElement) {
-                        document.exitFullscreen();
-                    } else {
-                        el.requestFullscreen();
-                    }
-                }}>
-                    <Fullscreen size={20} color="white"/>
-                </button>
-            </div>
+                        {/* SPEED */}
+                        <select
+                            className="text-foreground border-foreground bg-background px-2 py-1 rounded"
+                            value={speed}
+                            onChange={(e) => {
+                                const value = Number(e.target.value);
 
-            </div>
+                                if (!playerRef.current) return;
+
+                                playerRef.current.playbackRate = value;
+                                setSpeed(value);
+                            }}
+                        >
+                            <option value="0.5">0.5x</option>
+                            <option value="1">1x</option>
+                            <option value="1.5">1.5x</option>
+                            <option value="2">2x</option>
+                        </select>
+
+                        {/*pip*/}
+                        <button
+                            onClick={async () => {
+                                const video = playerRef.current;
+                                if (!video) return;
+
+                                try {
+                                    // اگر already PiP هست → خارج شو
+                                    if (document.pictureInPictureElement) {
+                                        await document.exitPictureInPicture();
+                                    } else {
+                                        await video.requestPictureInPicture();
+                                    }
+                                } catch (err) {
+                                    console.log("PiP not supported", err);
+                                }
+                            }}
+                        >
+                            <PictureInPicture2 size={20} color="white"/>
+                        </button>
+
+                        {/* FULLSCREEN */}
+                        <button onClick={() => {
+                            const el = containerRef.current;
+                            if (!el) return;
+
+                            if (document.fullscreenElement) {
+                                document.exitFullscreen();
+                            } else {
+                                el.requestFullscreen();
+                            }
+                        }}>
+                            <Fullscreen size={20} color="white"/>
+                        </button>
+                    </div>
+
+                </div>
+
+            )}
 
             {showControls && (
                 <div dir='ltr' className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm space-x-6">
