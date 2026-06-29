@@ -8,7 +8,6 @@ import React from "react";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getLocale } from 'next-intl/server';
 import { ToastContainer } from 'react-toastify'
-import {ThemeSyncProvider} from "@/components/ThemeSyncProvider";
 
 export const metadata: Metadata = {
   title: "Metrica",
@@ -40,7 +39,6 @@ export default async  function RootLayout({
               enableSystem={false}   // ❌ حذف system
               disableTransitionOnChange
           >
-              <ThemeSyncProvider/>
 
               {children}
           </ThemeProvider>

@@ -10,9 +10,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
-import { useGetSettingsVisibleLanguagesQuery } from "@/services/api/settingsApi";
 
-import { useUpdateMyLanguageMutation } from "@/services/api/usersApi";
 import {useAppSelector} from "@/store/hooks";
 
 function getInitialLocale() {
@@ -31,13 +29,7 @@ export default function LocaleSwitcher() {
     const user = useAppSelector(s => s.user.user);
 
 
-    const {
-        data,
-        isLoading,
-    } = useGetSettingsVisibleLanguagesQuery();
 
-    const [updateMyLanguage, { isLoading: isUpdating }] =
-        useUpdateMyLanguageMutation();
 
     const languages = data?.items || [];
 
