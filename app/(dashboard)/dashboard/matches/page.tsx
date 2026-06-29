@@ -3,6 +3,7 @@ function Page() {
     return (
         <div>
             <MatchesTable/>
+
         </div>
     );
 }
