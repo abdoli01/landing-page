@@ -231,8 +231,13 @@
     "visibleLanguages": "زبان‌های قابل مشاهده",
     "language": "زبان",
     "code": "کد",
-    "FOOTBALL_PLAYER_GOALKEEPER": "دروازه بان"
+    "FOOTBALL_PLAYER_GOALKEEPER": "دروازه بان",
 
-
+    "matches": "مسابقات",
+    "roundId": "مرحله",
+    "time": "زمان",
+    "hostScore": "گل میزبان",
+    "guestScore": "گل مهمان",
+    "q": "جستجو"
   }
 }

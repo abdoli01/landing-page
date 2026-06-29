@@ -227,6 +227,14 @@
     "visibleLanguages": "Visible Languages",
     "language": "Language",
     "code": "Code",
-    "FOOTBALL_PLAYER_GOALKEEPER": "Goal Keeper"
+    "FOOTBALL_PLAYER_GOALKEEPER": "Goal Keeper",
+
+    "matches": "Matches",
+    "roundId": "Round",
+    "time": "Time",
+    "hostScore": "Home Score",
+    "guestScore": "Guest Score",
+    "q": "Search"
+
   }
 }
