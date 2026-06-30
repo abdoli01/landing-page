@@ -35,7 +35,7 @@ export default async  function RootLayout({
           <ToastContainer position="top-right" autoClose={5000} pauseOnHover  hideProgressBar={false} rtl={locale === 'fa'} />
           <ThemeProvider
               attribute="class"
-              defaultTheme="dark"   // 🔥 مهم
+              defaultTheme="light"   // 🔥 مهم
               enableSystem={false}   // ❌ حذف system
               disableTransitionOnChange
           >

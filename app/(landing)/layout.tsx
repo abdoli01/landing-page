@@ -6,7 +6,6 @@ export default function PlayersLayout({
 }) {
     return (
                 <main className={'px-4 w-full'}>
-                  <h1>hiii</h1>
                     {children}
                 </main>
 
