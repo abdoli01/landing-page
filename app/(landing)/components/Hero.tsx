@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Hero() {
     return (
-        <section className="container mx-auto px-6 py-20">
+        <section>
             <div className="grid items-center gap-12 lg:grid-cols-2">
                 {/* Right Content */}
                 <div className="order-2 text-center lg:order-1 lg:text-right">
