@@ -1,87 +1,46 @@
-"use client";
+// components/navbar.tsx
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import {ReactNode} from "react";
+import { Button } from "@/components/ui/button";
+import { Download, PlayCircle } from "lucide-react";
 import Image from "next/image";
-import {cn} from "@/lib/utils";
-import { useAppSelector } from "@/store/hooks";
-import {useLocale, useTranslations} from "next-intl";
-// import {Player} from "@/types/player";
+import {ModeToggle} from "@/components/ModeToggle";
 
-export default function Navbar({children}: { children: ReactNode }) {
-    const pathname = usePathname();
-    // const locale = useLocale();
-    // const isRtl = locale === "fa";
-
-    const tabs = [
-        { title: "profile", url: "/profile" },
-        { title: "reports", url: "/reports" },
-        { title: "videos", url: "/videos" },
-    ];
-
-    const isActive = (url: string) => pathname.startsWith(url);
-
-    const { user } = useAppSelector(
-        (state) => state.user
-    );
-    // const player : Player | null = useAppSelector((s) => s.player.player);
-    const header = useAppSelector(s => s.playerHeader.header);
-    const t = useTranslations('Navbar');
-
-
-    if (!user) return null;
-
+export default function Navbar() {
     return (
-        <div className="w-full py-2 md:flex items-end justify-between text-white border-b-2 border-[#2c2c2c]">
-            {/* LEFT: Player Info */}
-           <div className="flex items-center justify-between">
-               <span className="block md:hidden">{children}</span>
-               <div className="flex items-center gap-3">
-                   <Image src="/images/alipor.png" alt="player"  width={40} height={40} className='rounded-full' />
-                   <div className="flex flex-col leading-tight">
-                       <span className="font-semibold text-lg text-foreground">{header?.fullName?.value || 'test testi'}</span>
-                       <span className="text-sm text-gray-400">{ header?.club?.value || 'Persepolis'} | #{ header?.kitNumber?.value || '09'} | {header?.age?.value}yo</span>
-                   </div>
-               </div>
-               <Link
-                   href='/'
-                   className={cn(
-                       "flex flex-col items-center justify-center gap-2 px-3 py-2 transition-colors h-[65px]",
-                   )}
-               >
-                   <div className="relative w-6 h-8 md:w-12 md:h-14 block md:hidden">
-                       <Image
-                           src="/images/logo-new.png"
-                           alt="logo"
-                           fill
-                           className="object-contain"
-                       />
-                   </div>
-               </Link>
-           </div>
+        <header className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur">
+            <div className="container mx-auto flex h-16 items-center justify-between px-4">
+                {/* Logo */}
+                <div className="flex items-center gap-3">
+                    <Image
+                        src="/logo.png"
+                        alt="Metrica"
+                        width={42}
+                        height={42}
+                        className="rounded-lg"
+                    />
 
-            {/* RIGHT: Tabs */}
-            <div className="flex items-center justify-center text-sm font-medium">
-                {tabs.map(({ title, url }) => (
-                    <Link href={url} key={title} className="relative cursor-pointer">
-            <span
-                className={
-
-                `${    isActive(url)
-                    ? "text-acn1"
-                    : "text-gray-300 hover:text-acn1 transition"} px-8`
-                }
-            >
-                {t(title)}
+                    <div className="hidden sm:flex flex-col leading-none">
+                        <span className="font-bold text-lg">متریکا</span>
+                        <span className="text-xs text-muted-foreground">
+              Football Analytics
             </span>
+                    </div>
+                </div>
 
-                        {isActive(url) && (
-                            <div className="absolute left-0 -bottom-2.5 w-full h-[2px] bg-acn1 rounded-full" />
-                        )}
-                    </Link>
-                ))}
+                {/* Actions */}
+                <div className="flex items-center gap-3">
+                    <Button variant="outline">
+                        <PlayCircle className="ml-2 h-4 w-4" />
+                        ویدیو معرفی
+                    </Button>
+
+                    {/*<Button>*/}
+                    {/*    <Download className="ml-2 h-4 w-4" />*/}
+                    {/*    دانلود اپلیکیشن*/}
+                    {/*</Button>*/}
+                    <ModeToggle/>
+                </div>
             </div>
-        </div>
+        </header>
     );
 }
