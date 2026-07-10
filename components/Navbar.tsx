@@ -16,6 +16,7 @@ export default function Navbar() {
                         alt="Metrica"
                         width={42}
                         height={42}
+                        style={{ width: "auto", height: "auto" }}
                         className="rounded-lg"
                     />
 

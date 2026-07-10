@@ -2,8 +2,8 @@
 
 export default function AboutApp() {
     return (
-        <section className="py-24">
-            <div className="container mx-auto max-w-5xl px-4">
+        <section className="pb-10">
+            <div className="container mx-auto max-w-5xl">
                 <div className="mx-auto max-w-4xl rounded-3xl border bg-card p-8 shadow-sm lg:p-12">
                     <div className="mb-8">
             <span className="mb-3 inline-flex rounded-full bg-primary/10 px-4 py-1 text-sm font-medium text-primary">
