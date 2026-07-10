@@ -3,6 +3,7 @@ import Hero from "./components/Hero";
 import Navbar from "@/components/Navbar";
 import AboutApp from "@/app/(landing)/components/AboutApp";
 import Features from "@/app/(landing)/components/Features";
+import Leagues from "@/app/(landing)/components/Leagues";
 
 const Page = () => {
 
@@ -12,6 +13,7 @@ const Page = () => {
             <Hero/>
             <AboutApp/>
             <Features/>
+            <Leagues/>
         </>
     );
 };
