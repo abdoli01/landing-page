@@ -49,7 +49,7 @@ export default function Features() {
                             <div
                                 key={feature.title}
                                 className="
-                                    w-[280px]
+                                    w-full
                                     h-[240px]
                                     rounded-2xl
                                     cursor-pointer
@@ -59,8 +59,8 @@ export default function Features() {
                                     flex
                                     flex-col
                                     items-center
-                                    justify-center
-                                    gap-6
+                                    justify-around
+
                                     text-center
                                     transition-all
                                     duration-300
