@@ -1,6 +1,7 @@
 import React from "react";
 import Hero from "./components/Hero";
 import Navbar from "@/components/Navbar";
+import AboutApp from "@/app/(landing)/components/AboutApp";
 
 const Page = () => {
 
@@ -8,6 +9,7 @@ const Page = () => {
         <>
             <Navbar/>
             <Hero/>
+            <AboutApp/>
         </>
     );
 };

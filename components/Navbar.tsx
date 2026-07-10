@@ -7,24 +7,24 @@ import {ModeToggle} from "@/components/ModeToggle";
 
 export default function Navbar() {
     return (
-        <header className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur">
-            <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        <header className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur mb-2">
+            <div className="container mx-auto flex h-16 items-center justify-between">
                 {/* Logo */}
                 <div className="flex items-center gap-3">
                     <Image
-                        src="/logo.png"
+                        src="/images/logo-new.png"
                         alt="Metrica"
                         width={42}
                         height={42}
                         className="rounded-lg"
                     />
 
-                    <div className="hidden sm:flex flex-col leading-none">
-                        <span className="font-bold text-lg">متریکا</span>
-                        <span className="text-xs text-muted-foreground">
-              Football Analytics
-            </span>
-                    </div>
+            {/*        <div className="hidden sm:flex flex-col leading-none">*/}
+            {/*            <span className="font-bold text-lg">متریکا</span>*/}
+            {/*            <span className="text-xs text-muted-foreground">*/}
+            {/*  Football Analytics*/}
+            {/*</span>*/}
+            {/*        </div>*/}
                 </div>
 
                 {/* Actions */}

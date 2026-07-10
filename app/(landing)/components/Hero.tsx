@@ -39,7 +39,7 @@ export default function Hero() {
                 <div className="order-1 flex justify-center lg:order-2">
                     <div className="relative h-[300px] w-full max-w-[550px] overflow-hidden rounded-3xl shadow-2xl md:h-[450px]">
                         <Image
-                            src="/images/hero-football.jpg"
+                            src="/images/header.jpg"
                             alt="اپلیکیشن متریکا"
                             fill
                             priority
