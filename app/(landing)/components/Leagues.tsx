@@ -14,7 +14,7 @@ const leagues = [
 export default function Leagues() {
     return (
         <section className="pb-10">
-            <div className="border rounded-3xl p-8">
+            <div className="border rounded-3xl p-8 bg-card">
 
                 <div className="text-center mb-10">
                     <h2 className="text-2xl md:text-3xl font-bold">
@@ -54,7 +54,6 @@ export default function Leagues() {
                                 hover:border-primary
                                 hover:shadow-md
                                 cursor-pointer
-                                bg-background
                             "
                         >
 
