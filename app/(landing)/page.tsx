@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import AboutApp from "@/app/(landing)/components/AboutApp";
 import Features from "@/app/(landing)/components/Features";
 import Leagues from "@/app/(landing)/components/Leagues";
+import ScrollToTop from "@/app/(landing)/components/ScrollToTop";
 
 const Page = () => {
 
@@ -14,6 +15,7 @@ const Page = () => {
             <AboutApp/>
             <Features/>
             <Leagues/>
+            <ScrollToTop/>
         </>
     );
 };
