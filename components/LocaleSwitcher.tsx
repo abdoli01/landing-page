@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-
 import {
     Select,
     SelectContent,
@@ -10,8 +9,16 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
-
-import {useAppSelector} from "@/store/hooks";
+const languages = [
+    {
+        code: "fa",
+        fullName: "فارسی",
+    },
+    {
+        code: "en",
+        fullName: "English",
+    },
+];
 
 function getInitialLocale() {
     if (typeof document === "undefined") return "fa";
@@ -25,49 +32,22 @@ function getInitialLocale() {
 }
 
 export default function LocaleSwitcher() {
-    const [currentLocale, setCurrentLocale] = React.useState<string>(getInitialLocale);
-    const user = useAppSelector(s => s.user.user);
+    const [currentLocale, setCurrentLocale] = React.useState<string>(
+        getInitialLocale
+    );
 
+    const changeLanguage = (locale: string) => {
+        setCurrentLocale(locale);
 
+        // ذخیره در Cookie
+        document.cookie = `locale=${locale}; path=/; max-age=31536000`;
 
-
-    const languages = data?.items || [];
-
-    const changeLanguage = async (locale: string) => {
-        try {
-            const selectedLanguage = languages.find(
-                (language) => language.code === locale
-            );
-
-            if (!selectedLanguage) return;
-
-            setCurrentLocale(locale);
-
-            // ذخیره داخل cookie
-            document.cookie = `locale=${locale}; path=/; max-age=31536000`;
-
-            // فقط اگر user وجود داشت → API call
-            if (user) {
-                await updateMyLanguage({
-                    languageId: selectedLanguage.id,
-                    useSystemLanguage: false,
-                }).unwrap();
-            }
-
-            // reload
-            window.location.reload();
-
-        } catch (error) {
-            console.error("Failed to update language:", error);
-        }
+        // رفرش صفحه
+        window.location.reload();
     };
 
     return (
-        <Select
-            value={currentLocale}
-            onValueChange={changeLanguage}
-            disabled={isLoading || isUpdating}
-        >
+        <Select value={currentLocale} onValueChange={changeLanguage}>
             <SelectTrigger className="w-40">
                 <SelectValue placeholder="Select language" />
             </SelectTrigger>
@@ -75,7 +55,7 @@ export default function LocaleSwitcher() {
             <SelectContent>
                 {languages.map((language) => (
                     <SelectItem
-                        key={language.id}
+                        key={language.code}
                         value={language.code}
                     >
                         {language.code.toUpperCase()} - {language.fullName}

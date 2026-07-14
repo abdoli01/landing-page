@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Download, PlayCircle } from "lucide-react";
 import Image from "next/image";
 import {ModeToggle} from "@/components/ModeToggle";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 
 export default function Navbar() {
     return (
@@ -30,10 +31,11 @@ export default function Navbar() {
 
                 {/* Actions */}
                 <div className="flex items-center gap-3">
-                    <Button variant="outline">
-                        <PlayCircle className="ml-2 h-4 w-4" />
-                        ویدیو معرفی
-                    </Button>
+                    {/*<Button variant="outline">*/}
+                    {/*    <PlayCircle className="ml-2 h-4 w-4" />*/}
+                    {/*    ویدیو معرفی*/}
+                    {/*</Button>*/}
+                    <LocaleSwitcher/>
 
                     {/*<Button>*/}
                     {/*    <Download className="ml-2 h-4 w-4" />*/}
