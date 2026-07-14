@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
@@ -28,8 +29,15 @@ export default function Hero() {
                         <Button size="lg">
                             دانلود اپلیکیشن
                         </Button>
-
-                        <Button variant="outline" size="lg">
+                        <Button variant="outline" size="lg"
+                                onClick={() => {
+                                    document
+                                        .getElementById("AboutApp")
+                                        ?.scrollIntoView({
+                                            behavior: "smooth",
+                                        });
+                                }}
+                        >
                             مشاهده امکانات
                         </Button>
                     </div>

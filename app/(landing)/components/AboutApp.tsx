@@ -2,7 +2,8 @@
 
 export default function AboutApp() {
     return (
-        <section className="pb-10">
+        <section id="AboutApp" className="scroll-mt-24">
+         <div className="pb-10">
             <div className="container mx-auto max-w-5xl">
                 <div className="mx-auto max-w-4xl rounded-3xl border bg-card p-8 shadow-sm lg:p-12">
                     <div className="mb-8">
@@ -36,6 +37,7 @@ export default function AboutApp() {
                         </p>
                     </div>
                 </div>
+            </div>
             </div>
         </section>
     );

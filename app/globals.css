@@ -133,6 +133,8 @@ body {
 }
 html {
     font-family:var(--font-ubunto);
+  scroll-behavior: smooth;
+
 }
 /*html {*/
 /*    font-family:sans-serif;*/
