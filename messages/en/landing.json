@@ -5,6 +5,16 @@
     "badge": "About the Application",
     "title": "What is the Metrica App?",
     "description": "The Metrica app is a video and statistical platform designed to meet the technical needs of football players competing in Iranian football leagues. It provides quick access to individual player performance videos from every match. These videos are categorized by technical actions (such as attacking actions, defensive actions, duels, and more) and their outcomes (successful or unsuccessful actions and their statistical impact on the game's momentum and, consequently, the player's technical rating). In addition to watching these videos, users can download them, create personalized highlight clips or video analyses online directly within the application. The app also provides detailed statistics covering various aspects of a player's performance in each match. These statistics are evaluated and reported on both a weekly and cumulative basis, comparing the player's performance with others in the same position across each league. Finally, players can grant access to their personal coach or advisor, allowing them to view all videos and statistics and provide online feedback and coaching comments that can be attached as text to each video."
-  }
+  },
+    "hero": {
+      "badge": "Professional Football Application",
+      "app": "Application",
+      "metrica": "Metrica",
+      "subtitle": "For players competing in Iranian football leagues",
+      "description": "Quick access to individual performance videos, advanced statistics, clip creation tools, match analysis, and online consultation—all in one application.",
+      "downloadButton": "Download Application",
+      "featuresButton": "View Features"
+    }
+
   }
 }

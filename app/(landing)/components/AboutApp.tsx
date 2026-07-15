@@ -1,5 +1,4 @@
 // components/about-app.tsx
-'use client'
 import { useLocale, useTranslations } from 'next-intl';
 export default function AboutApp() {
     // const locale = useLocale();
