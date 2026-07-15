@@ -22,6 +22,18 @@
         "playerStatistics": "Player performance statistics and comparison with players in the same position within each league",
         "onlineConsultation": "Online consultation and the ability to attach comments to player performance images"
       }
+    },
+    "leagues": {
+      "title": "Leagues Covered by Metrica",
+      "description": "Metrica analyzes player performance across the following leagues.",
+      "items": {
+        "iranPremierLeague": "Iran Pro League",
+        "azadeganLeague": "Azadegan League (Iran Division One)",
+        "tehranU21PremierLeague": "Tehran U-21 Premier League",
+        "tehranYouthPremierLeague": "Tehran Youth Premier League",
+        "tehranU17PremierLeague": "Tehran U-17 Premier League",
+        "tehranU15PremierLeague": "Tehran U-15 Premier League"
+      }
     }
 
   }

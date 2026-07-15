@@ -23,6 +23,18 @@
         "playerStatistics": "آمار عملکرد بازیکن و مقایسه با هم‌پستی‌هایش در هر لیگ",
         "onlineConsultation": "امکان مشاوره آنلاین و الصاق متن روی تصاویر عملکرد بازیکن"
       }
+    },
+    "leagues": {
+      "title": "لیگ‌های تحت پوشش متریکا",
+      "description": "عملکرد بازیکنان شاغل در لیگ‌های زیر توسط متریکا تحلیل می‌شود",
+      "items": {
+        "iranPremierLeague": "لیگ برتر ایران",
+        "azadeganLeague": "لیگ آزادگان (دسته یک ایران)",
+        "tehranU21PremierLeague": "لیگ برتر امیدهای تهران",
+        "tehranYouthPremierLeague": "لیگ برتر جوانان تهران",
+        "tehranU17PremierLeague": "لیگ برتر نوجوانان تهران",
+        "tehranU15PremierLeague": "لیگ برتر نونهالان تهران"
+      }
     }
   }
 }

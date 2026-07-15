@@ -1,28 +1,30 @@
 import { Trophy } from "lucide-react";
+import {useTranslations} from "next-intl";
 
 
 const leagues = [
-    "لیگ برتر ایران",
-    "لیگ آزادگان (دسته یک ایران)",
-    "لیگ برتر امیدهای تهران",
-    "لیگ برتر جوانان تهران",
-    "لیگ برتر نوجوانان تهران",
-    "لیگ برتر نونهالان تهران",
+   "iranPremierLeague",
+   "azadeganLeague",
+   "tehranU21PremierLeague",
+   "tehranYouthPremierLeague",
+   "tehranU17PremierLeague",
+   "tehranU15PremierLeague",
 ];
 
 
 export default function Leagues() {
+    const t = useTranslations('Landing');
     return (
         <section className="pb-10">
             <div className="border rounded-3xl p-8 bg-card">
 
                 <div className="text-center mb-10">
                     <h2 className="text-2xl md:text-3xl font-bold">
-                        لیگ‌های تحت پوشش متریکا
+                        {t("leagues.title")}
                     </h2>
 
                     <p className="mt-4 text-muted-foreground">
-                        عملکرد بازیکنان شاغل در لیگ‌های زیر توسط متریکا تحلیل می‌شود
+                        {t("leagues.description")}
                     </p>
                 </div>
 
@@ -66,7 +68,7 @@ export default function Leagues() {
                             />
 
                             <span className="text-foreground">
-                                {league}
+                                {t(`leagues.items.${league}`)}
                             </span>
 
                         </div>
