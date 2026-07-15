@@ -4,29 +4,31 @@ import {
     ChartColumn,
     MessageSquareText,
 } from "lucide-react";
+import {useTranslations} from "next-intl";
 
 
 const features = [
     {
-        title: "ویدیو عملکرد فردی بازیکن در هر بازی",
+        title: "features.items.videoPerformance",
         icon: Video,
     },
     {
-        title: "ساخت سریع و آنلاین ویدیوکلیپ از عملکرد بازیکن",
+        title: "features.items.videoClipCreation",
         icon: Clapperboard,
     },
     {
-        title: "آمار عملکرد بازیکن و مقایسه با هم‌پستی‌هایش در هر لیگ",
+        title: "features.items.playerStatistics",
         icon: ChartColumn,
     },
     {
-        title: "امکان مشاوره آنلاین و الصاق متن روی تصاویر عملکرد بازیکن",
+        title: "features.items.onlineConsultation",
         icon: MessageSquareText,
     },
 ];
 
 
 export default function Features() {
+    const t = useTranslations('Landing');
     return (
         <section className="pb-10">
             <div className="w-full">
@@ -93,7 +95,7 @@ export default function Features() {
                                         leading-7
                                     "
                                 >
-                                    {feature.title}
+                                    {t(feature.title)}
                                 </p>
 
                             </div>

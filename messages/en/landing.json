@@ -14,6 +14,14 @@
       "description": "Quick access to individual performance videos, advanced statistics, clip creation tools, match analysis, and online consultation—all in one application.",
       "downloadButton": "Download Application",
       "featuresButton": "View Features"
+    },
+    "features": {
+      "items": {
+        "videoPerformance": "Individual player performance video in every match",
+        "videoClipCreation": "Fast and online creation of player performance video clips",
+        "playerStatistics": "Player performance statistics and comparison with players in the same position within each league",
+        "onlineConsultation": "Online consultation and the ability to attach comments to player performance images"
+      }
     }
 
   }
