@@ -9,7 +9,7 @@ export default function Hero() {
     const isRtl = locale === "fa";
     return (
         <section className={`text-center ${isRtl ? 'lg:text-right' : 'lg:text-left'} pb-10`}>
-            <div className="grid items-center gap-12 lg:grid-cols-2 border rounded-3xl p-8 bg-card">
+            <div className="p-8 grid gap-12 lg:grid-cols-2 border rounded-3xl bg-card">
                 {/* Right Content */}
                 <div
                     className="order-2 lg:order-1">

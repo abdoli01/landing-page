@@ -13,7 +13,7 @@ export default function AboutApp() {
               {t('badge')}
             </span>
 
-                        <h2 className="text-3xl font-extrabold lg:text-4xl">
+                        <h2 className="text-2xl font-extrabold lg:text-4xl">
                             {t('title')}
                         </h2>
                     </div>
