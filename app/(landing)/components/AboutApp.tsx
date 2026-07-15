@@ -1,6 +1,9 @@
 // components/about-app.tsx
-
+'use client'
+import { useLocale, useTranslations } from 'next-intl';
 export default function AboutApp() {
+    // const locale = useLocale();
+    const t = useTranslations('Landing.aboutApp');
     return (
         <section id="AboutApp" className="scroll-mt-24">
          <div className="pb-10">
@@ -8,32 +11,17 @@ export default function AboutApp() {
                 <div className="mx-auto max-w-4xl rounded-3xl border bg-card p-8 shadow-sm lg:p-12">
                     <div className="mb-8">
             <span className="mb-3 inline-flex rounded-full bg-primary/10 px-4 py-1 text-sm font-medium text-primary">
-              معرفی اپلیکیشن
+              {t('badge')}
             </span>
 
                         <h2 className="text-3xl font-extrabold lg:text-4xl">
-                            اپلیکیشن متریکا چیست؟
+                            {t('title')}
                         </h2>
                     </div>
 
                     <div className="text-justify leading-9 text-muted-foreground">
                         <p>
-                            اپلیکیشن متریکا یک سرویس ویدیویی-آماری و پاسخی به نیازهای فنی
-                            بازیکنان شاغل در فوتبال ایران است. در این اپلیکیشن، دسترسی سریع به
-                            ویدیوی عملکرد فردی بازیکن در هر بازی فراهم شده است. این ویدیوها به
-                            تفکیک ماهیت فنی (عملکردهای هجومی، دفاعی، نبردها و ..) و نتایج (موفق
-                            یا ناموفق بودن هر عملکرد و اثرگذاری آماری آن بر مومنتم بازی و
-                            -به تبعیت از آن- نمره فنی بازیکنان) در دسترس هستند. کاربر علاوه بر
-                            تماشای این ویدیوها، امکان دانلود و همچنین دستچین کردن و ساخت کلیپ
-                            فردی یا ویدیوآنالیز را به صورت آنلاین و صرفا از طریق نرم‌افزار
-                            دارد. آمار عملکرد فردی بازیکن در جنبه‌های مختلف هر بازی هم در این
-                            اپلیکیشن در اختیار کاربر قرار می‌گیرد. این آمار به صورت هفتگی و
-                            تجمیعی در مقایسه با عملکرد هم‌پستی‌های آن بازیکن در هر لیگ،
-                            امتیازگذاری و گزارش می‌شود. و در نهایت، در صورت نیاز بازیکن
-                            می‌تواند با تعریف دسترسی برای مشاور یا مربی شخصی خود، تمامی این
-                            ویدیوها و اطلاعات را با او به اشتراک بگذارد و از نظرها و
-                            مشاوره‌های او که به صورت متن به هر ویدیو الصاق می‌شود به صورت
-                            آنلاین بهره ببرد.
+                            {t('description')}
                         </p>
                     </div>
                 </div>

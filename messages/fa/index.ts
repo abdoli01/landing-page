@@ -1,4 +1,4 @@
-import auth from './auth.json';
+import landing from './landing.json';
 export default {
-    ...auth,
+    ...landing,
 };
