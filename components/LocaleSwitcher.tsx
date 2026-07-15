@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
 import { Loader2 } from "lucide-react";
 import {
@@ -24,11 +23,6 @@ const languages = [
 
 export default function LocaleSwitcher() {
     const locale = useLocale();
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
 
     const changeLanguage = (newLocale: string) => {
         document.cookie = `locale=${newLocale}; path=/; max-age=31536000`;
@@ -37,15 +31,11 @@ export default function LocaleSwitcher() {
 
     return (
         <Select
-            value={mounted ? locale : undefined}
+            value={locale || undefined}
             onValueChange={changeLanguage}
         >
             <SelectTrigger className="w-40">
-                {mounted ? (
                     <SelectValue />
-                ) : (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                )}
             </SelectTrigger>
 
             <SelectContent>
