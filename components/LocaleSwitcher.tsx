@@ -1,6 +1,8 @@
 "use client";
 
-import React from "react";
+import { useEffect, useState } from "react";
+import { useLocale } from "next-intl";
+import { Loader2 } from "lucide-react";
 import {
     Select,
     SelectContent,
@@ -20,36 +22,30 @@ const languages = [
     },
 ];
 
-function getInitialLocale() {
-    if (typeof document === "undefined") return "fa";
-
-    const cookieLocale = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("locale="))
-        ?.split("=")[1];
-
-    return cookieLocale || "fa";
-}
-
 export default function LocaleSwitcher() {
-    const [currentLocale, setCurrentLocale] = React.useState<string>(
-        getInitialLocale
-    );
+    const locale = useLocale();
+    const [mounted, setMounted] = useState(false);
 
-    const changeLanguage = (locale: string) => {
-        setCurrentLocale(locale);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
-        // ذخیره در Cookie
-        document.cookie = `locale=${locale}; path=/; max-age=31536000`;
-
-        // رفرش صفحه
+    const changeLanguage = (newLocale: string) => {
+        document.cookie = `locale=${newLocale}; path=/; max-age=31536000`;
         window.location.reload();
     };
 
     return (
-        <Select value={currentLocale} onValueChange={changeLanguage}>
+        <Select
+            value={mounted ? locale : undefined}
+            onValueChange={changeLanguage}
+        >
             <SelectTrigger className="w-40">
-                <SelectValue placeholder="Select language" />
+                {mounted ? (
+                    <SelectValue />
+                ) : (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                )}
             </SelectTrigger>
 
             <SelectContent>
